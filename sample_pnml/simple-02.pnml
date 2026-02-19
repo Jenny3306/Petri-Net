@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="simple_net_02" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+      <name>
+        <text>Complex Petri Net with Multiple Inputs/Outputs and Cycles</text>
+      </name>
+      
+      <!-- Places -->
+      <place id="p1">
+        <name>
+          <text>Input 1</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      
+      <place id="p2">
+        <name>
+          <text>Input 2</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      
+      <place id="p3">
+        <name>
+          <text>Buffer</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <place id="p4">
+        <name>
+          <text>Output 1</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <place id="p5">
+        <name>
+          <text>Output 2</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <!-- Transitions -->
+      <transition id="t1">
+        <name>
+          <text>Synchronization (requires p1 AND p2)</text>
+        </name>
+      </transition>
+      
+      <transition id="t2">
+        <name>
+          <text>Fork (produces p4 AND p5)</text>
+        </name>
+      </transition>
+      
+      <transition id="t3">
+        <name>
+          <text>Recycle to p1</text>
+        </name>
+      </transition>
+      
+      <transition id="t4">
+        <name>
+          <text>Recycle to p2</text>
+        </name>
+      </transition>
+      
+      <!-- Arcs for t1 (multiple inputs) -->
+      <arc id="a1" source="p1" target="t1">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a2" source="p2" target="t1">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a3" source="t1" target="p3">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <!-- Arcs for t2 (multiple outputs) -->
+      <arc id="a4" source="p3" target="t2">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a5" source="t2" target="p4">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a6" source="t2" target="p5">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <!-- Cycle arcs (p4 can go back to p1) -->
+      <arc id="a7" source="p4" target="t3">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a8" source="t3" target="p1">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <!-- Cycle arcs (p5 can go back to p2) -->
+      <arc id="a9" source="p5" target="t4">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a10" source="t4" target="p2">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+    </page>
+  </net>
+</pnml>

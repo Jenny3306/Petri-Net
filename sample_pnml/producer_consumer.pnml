@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml xmlns="http://www.pnml.org/version-2009/grammar/pnml">
+  <net id="producer_consumer_net" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <page id="page1">
+      <name>
+        <text>Producer-Consumer Pattern</text>
+      </name>
+      
+      <!-- Places -->
+      <place id="ready_produce">
+        <name>
+          <text>Producer Ready</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      
+      <place id="buffer_empty">
+        <name>
+          <text>Buffer Empty</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      
+      <place id="buffer_full">
+        <name>
+          <text>Buffer Full</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <place id="ready_consume">
+        <name>
+          <text>Consumer Ready</text>
+        </name>
+        <initialMarking>
+          <text>1</text>
+        </initialMarking>
+      </place>
+      
+      <place id="produced">
+        <name>
+          <text>Item Produced</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <place id="consumed">
+        <name>
+          <text>Item Consumed</text>
+        </name>
+        <initialMarking>
+          <text>0</text>
+        </initialMarking>
+      </place>
+      
+      <!-- Transitions -->
+      <transition id="produce">
+        <name>
+          <text>Produce Item</text>
+        </name>
+      </transition>
+      
+      <transition id="store">
+        <name>
+          <text>Store in Buffer</text>
+        </name>
+      </transition>
+      
+      <transition id="consume">
+        <name>
+          <text>Consume Item</text>
+        </name>
+      </transition>
+      
+      <transition id="finish_consume">
+        <name>
+          <text>Finish Consumption</text>
+        </name>
+      </transition>
+      
+      <!-- Producer Arcs -->
+      <arc id="a1" source="ready_produce" target="produce">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a2" source="produce" target="produced">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a3" source="produced" target="store">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a4" source="buffer_empty" target="store">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a5" source="store" target="buffer_full">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a6" source="store" target="ready_produce">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <!-- Consumer Arcs -->
+      <arc id="a7" source="buffer_full" target="consume">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a8" source="ready_consume" target="consume">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a9" source="consume" target="consumed">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a10" source="consumed" target="finish_consume">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a11" source="finish_consume" target="buffer_empty">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+      
+      <arc id="a12" source="finish_consume" target="ready_consume">
+        <inscription>
+          <text>1</text>
+        </inscription>
+      </arc>
+    </page>
+  </net>
+</pnml>
