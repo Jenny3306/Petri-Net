@@ -1,0 +1,15 @@
+# Python Dependencies for Petri Net Analysis Application
+numpy>=2.0.0    
+scipy>=1.12.0    
+
+# For BDD operations (bdd_reachability/)
+dd>=0.5.7   # Decision diagrams library (symbolic reachability)
+
+# For ILP and optimization
+pulp>=2.7.0  
+
+# Testing and development
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-sugar>=0.9.7
+pytest-html>=3.2.0
